@@ -19,6 +19,7 @@ class UserController extends Controller
         return $users;
     }
 
+
     /**
      * Show the form for creating a new resource.
      */
@@ -37,7 +38,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:50', 'unique:users'],
             'fname' => ['string', 'max:50'],
             'cname' => ['string', 'max:50'],
-            'phone' => ['int', 'max:10'],
+            'phone' => ['string'],
             'type' => ['string', 'max:10'],
             'pass' => ['required', 'string', 'min:6'],
         ]);
@@ -58,10 +59,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $email)
     {
-        //
+        $user = User::where('email', 'like', $email)->firstOrFail();
+        return $user;
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -89,7 +92,7 @@ class UserController extends Controller
             $user->pass = $request->pass;
         }
 
-        $result= $user->save();
+        $result = $user->save();
         return $user;
     }
 
