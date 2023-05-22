@@ -41,6 +41,7 @@ class ComplaintController extends Controller
         $complaint->property = $request->input('property');
         $complaint->desc = $request->input('desc');
         $complaint->date = $request->input('date');
+        $complaint->complainer = $request->input('complainer');
 
         if($request->file('image')){
             $name = $request->file('image')->getClientOriginalName();
@@ -60,6 +61,12 @@ class ComplaintController extends Controller
     {
         $complaint = Complaint::find($id);
         return $complaint;
+    }
+    
+    public function getComplaints(string $email)
+    {
+        $complaints = Complaint::where('complainer', $email)->get();
+        return $complaints;
     }
 
     /**
