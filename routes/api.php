@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PriorityController;
 
 
 /*
@@ -26,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('users', UserController::class);
 Route::resource('complaints', ComplaintController::class);
 Route::resource('comments', CommentController::class);
+Route::resource('priorities', PriorityController::class);
 Route::get('getComments/{id}', [CommentController::class, 'getComments']);
 
 

@@ -85,6 +85,7 @@ class UserController extends Controller
         $user->fname = $request->fname;
         $user->lname = $request->lname;
         $user->phone = $request->phone;
+        $user->type = $request->type;
 
         if(Hash::needsRehash($request->pass)){
             $user->pass = Hash::make($request->pass);

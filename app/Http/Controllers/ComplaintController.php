@@ -36,21 +36,26 @@ class ComplaintController extends Controller
         ]);
 
         $complaint = new Complaint;
-
+        
         $complaint->title = $request->input('title');
         $complaint->property = $request->input('property');
         $complaint->desc = $request->input('desc');
         $complaint->date = $request->input('date');
         $complaint->complainer = $request->input('complainer');
-
-        if($request->file('image')){
-            $name = $request->file('image')->getClientOriginalName();
-            $request->file('image')->storeAs('public/images/complaints', $name);
-            $complaint->image = $name;
+        
+        $images = $request->file('images');
+        $imagess = array();
+        
+        if($images){
+            foreach ($images as $key=>$image) {
+                $name = $image->getClientOriginalName();
+                $image->storeAs('public/images/complaints', $name);
+                array_push($imagess, $name);
+            }
+            $complaint->image = $imagess;
         }
-
+            
         $complaint->save();
-
         return $complaint;
     }
 

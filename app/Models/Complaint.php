@@ -26,4 +26,12 @@ class Complaint extends Model
             set: fn ($value) => json_encode($value),
         );
     } 
+
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => json_decode($value, true),
+            set: fn ($value) => json_encode($value),
+        );
+    } 
 }

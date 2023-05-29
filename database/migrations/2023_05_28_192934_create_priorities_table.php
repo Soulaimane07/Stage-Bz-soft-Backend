@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('complaints', function (Blueprint $table) {
+        Schema::create('priorities', function (Blueprint $table) {
             $table->id();
-            $table->json('image');
             $table->string('title');
-            $table->string('property');
-            $table->longText('desc');
-            $table->json('date');
-            $table->string('complainer');
+            $table->string('color');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('complaints');
+        Schema::dropIfExists('priorities');
     }
 };
