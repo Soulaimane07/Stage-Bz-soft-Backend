@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('type');
             $table->string('pass');
+            $table->boolean('cancoment')->default(true);
             $table->timestamps();
         });
     }
