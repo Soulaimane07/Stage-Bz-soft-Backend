@@ -50,6 +50,7 @@ class UserController extends Controller
             'lname' => $request['lname'],
             'phone' => $request['phone'],
             'type' => $request['type'],
+            "cancoment" => true,
             'pass' => Hash::make($request['pass']),
         ]);
 
@@ -85,7 +86,7 @@ class UserController extends Controller
         $user->fname = $request->fname;
         $user->lname = $request->lname;
         $user->phone = $request->phone;
-        $user->type = $request->type;
+        $user->cancoment = $request->cancoment;
 
         if(Hash::needsRehash($request->pass)){
             $user->pass = Hash::make($request->pass);

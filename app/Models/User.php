@@ -17,5 +17,6 @@ class User extends Model
         'phone',
         "type",
         'pass',
+        'cancoment'
     ];
 }

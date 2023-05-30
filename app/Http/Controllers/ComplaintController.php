@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Complaint;
+use App\Models\Comment;
 
 class ComplaintController extends Controller
 {
@@ -96,6 +97,7 @@ class ComplaintController extends Controller
     public function destroy(string $id)
     {
         Complaint::find($id)->delete();
+        Comment::where('complaint', $id)->delete();
         return "User is deleted";
     }
 }
