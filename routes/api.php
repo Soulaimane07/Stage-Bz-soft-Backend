@@ -32,3 +32,4 @@ Route::get('getComments/{id}', [CommentController::class, 'getComments']);
 
 
 Route::get('getComplaints/{email}', [ComplaintController::class, 'getComplaints']);
+Route::post('complaints/affect/{complaint}', [ComplaintController::class, 'affect']);

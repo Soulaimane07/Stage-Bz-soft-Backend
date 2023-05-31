@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Complaint;
 use App\Models\Comment;
+use App\Models\User;
 
 class ComplaintController extends Controller
 {
@@ -71,8 +72,37 @@ class ComplaintController extends Controller
     
     public function getComplaints(string $email)
     {
+        $user = User::where('email', $email)->get();
+        $hello =  json_decode(str_replace('""', '', $user[0]->complaints));
+        $comps = Complaint::whereIn('id', $hello)->get();
+
         $complaints = Complaint::where('complainer', $email)->get();
-        return $complaints;
+
+        $result = array_merge(json_decode($comps), json_decode($complaints));
+
+        return $result;
+    }
+
+
+    
+    public function affect(Request $request, string $complaint)
+    {
+        $hello = User::whereIn("id", $request->list)->get();
+        
+        foreach ($hello as $key => $user) {
+            $array = json_decode($user->complaints);
+            
+            if($user->complaints === null){
+                $new = array($request->complaint);
+                $result = User::whereIn("id", $request->list)->update(['complaints'=> $new]);
+            } 
+            else {
+                array(array_push($array, $request->complaint));
+                $result = User::whereIn("id", $request->list)->update(['complaints'=> $array]);
+            }
+        }
+       
+        return $result;
     }
 
     /**

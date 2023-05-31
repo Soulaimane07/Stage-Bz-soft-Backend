@@ -17,6 +17,15 @@ class User extends Model
         'phone',
         "type",
         'pass',
+        'complaints',
         'cancoment'
     ];
+
+    protected function complaints(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => json_decode($value, true),
+            set: fn ($value) => json_encode($value),
+        );
+    } 
 }
